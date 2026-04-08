@@ -1,36 +1,140 @@
-<!DOCTYPE html>
-<html lang="en">
+import React, { useState, useEffect } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+
+export default function BlogDashboard() {
+  const [form, setForm] = useState({
+    metaTitle: "",
+    metaDescription: "",
+    metaKeywords: "",
+    slug: "",
+    h1: "",
+    h2: "",
+    h3: "",
+    content: "",
+    focusKeyword: "",
+    imageAlt: ""
+  });
+
+  const [seoScore, setSeoScore] = useState(0);
+  const [keywordDensity, setKeywordDensity] = useState(0);
+  const [savedPosts, setSavedPosts] = useState([]);
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  // SEO SCORE CALCULATION
+  useEffect(() => {
+    let score = 0;
+
+    if (form.metaTitle.length >= 50 && form.metaTitle.length <= 60) score += 20;
+    if (form.metaDescription.length >= 140 && form.metaDescription.length <= 160) score += 20;
+    if (form.h1.includes(form.focusKeyword)) score += 20;
+    if (form.content.includes(form.focusKeyword)) score += 20;
+    if (form.imageAlt.includes(form.focusKeyword)) score += 20;
+
+    setSeoScore(score);
+
+    // Keyword Density
+    let words = form.content.split(" ");
+    let count = words.filter(w => w.toLowerCase() === form.focusKeyword.toLowerCase()).length;
+    let density = words.length ? ((count / words.length) * 100).toFixed(2) : 0;
+    setKeywordDensity(density);
+
+  }, [form]);
+
+  // SAVE TO LOCAL STORAGE
+  const savePost = () => {
+    let posts = JSON.parse(localStorage.getItem("posts")) || [];
+    posts.push(form);
+    localStorage.setItem("posts", JSON.stringify(posts));
+    setSavedPosts(posts);
+    alert("Post Saved Successfully");
+  };
+
+  // SCHEMA GENERATOR
+  const generateSchema = () => {
+    return {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": form.metaTitle,
+      "description": form.metaDescription,
+      "image": "your-image-url",
+      "author": {
+        "@type": "Organization",
+        "name": "Tours N Travel Pro"
+      }
+    };
+  };
+
+  // HTML GENERATOR
+  const generateHTML = () => {
+    return `<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Blog</title>
-    <link rel="stylesheet" href="style.css">
+<title>${form.metaTitle}</title>
+<meta name="description" content="${form.metaDescription}">
+<meta name="keywords" content="${form.metaKeywords}">
+<script type="application/ld+json">${JSON.stringify(generateSchema())}</script>
 </head>
 <body>
-
-<header>
-    <h1>Blog</h1>
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="blog.html">Blog</a>
-        <a href="contact.html">Contact</a>
-    </nav>
-</header>
-
-<div class="container">
-    <div class="block">
-        <h2>Latest Article</h2>
-        <p>This blog post uses a modern card layout with hover animation.</p>
-    </div>
-
-    <div class="block">
-        <h2>Design Tips</h2>
-        <p>Use spacing, contrast, and motion to improve UI/UX experience.</p>
-    </div>
-</div>
-
-<footer>
-    <p>© 2026 My Website</p>
-</footer>
-
+<h1>${form.h1}</h1>
+<h2>${form.h2}</h2>
+<h3>${form.h3}</h3>
+<p>${form.content}</p>
 </body>
-</html>
+</html>`;
+  };
+
+  return (
+    <div className="p-6 grid md:grid-cols-2 gap-6">
+      <Card className="rounded-2xl shadow-lg">
+        <CardContent className="p-4">
+          <h1 className="text-xl font-bold mb-4">Advanced SEO Blog Dashboard</h1>
+
+          <input name="metaTitle" placeholder="Meta Title" onChange={handleChange} className="w-full p-2 mb-1 border rounded" />
+          <p className="text-sm mb-2">{form.metaTitle.length}/60 characters</p>
+
+          <textarea name="metaDescription" placeholder="Meta Description" onChange={handleChange} className="w-full p-2 mb-1 border rounded" />
+          <p className="text-sm mb-2">{form.metaDescription.length}/160 characters</p>
+
+          <input name="metaKeywords" placeholder="Meta Keywords" onChange={handleChange} className="w-full p-2 mb-3 border rounded" />
+          <input name="focusKeyword" placeholder="Focus Keyword" onChange={handleChange} className="w-full p-2 mb-3 border rounded" />
+
+          <input name="slug" placeholder="URL Slug" onChange={handleChange} className="w-full p-2 mb-3 border rounded" />
+
+          <input name="h1" placeholder="H1 Heading" onChange={handleChange} className="w-full p-2 mb-3 border rounded" />
+          <input name="h2" placeholder="H2 Heading" onChange={handleChange} className="w-full p-2 mb-3 border rounded" />
+          <input name="h3" placeholder="H3 Heading" onChange={handleChange} className="w-full p-2 mb-3 border rounded" />
+
+          <textarea name="content" placeholder="Blog Content" rows={6} onChange={handleChange} className="w-full p-2 mb-3 border rounded" />
+
+          <input name="imageAlt" placeholder="Image ALT (SEO)" onChange={handleChange} className="w-full p-2 mb-3 border rounded" />
+
+          <div className="mb-3">
+            <p>SEO Score: <strong>{seoScore}/100</strong></p>
+            <p>Keyword Density: <strong>{keywordDensity}%</strong></p>
+          </div>
+
+          <Button className="w-full mb-2" onClick={savePost}>Save Post</Button>
+          <Button className="w-full">Publish (Backend Needed)</Button>
+        </CardContent>
+      </Card>
+
+      <Card className="rounded-2xl shadow-lg">
+        <CardContent className="p-4">
+          <h2 className="text-lg font-semibold mb-2">Live HTML Output</h2>
+          <pre className="text-sm whitespace-pre-wrap bg-gray-100 p-3 rounded">
+            {generateHTML()}
+          </pre>
+
+          <h2 className="text-lg font-semibold mt-4">Schema Markup</h2>
+          <pre className="text-sm whitespace-pre-wrap bg-gray-100 p-3 rounded">
+            {JSON.stringify(generateSchema(), null, 2)}
+          </pre>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
