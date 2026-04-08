@@ -1,164 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tours N Travel Pro</title>
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background: #f4f4f4;
-    }
-
-    /* NAVBAR */
-    .navbar {
-      background: #222;
-      padding: 0;
-    }
-
-    .navbar ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-    }
-
-    .navbar li {
-      position: relative;
-    }
-
-    .navbar a {
-      display: block;
-      padding: 15px 20px;
-      color: #fff;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .navbar a:hover {
-      background: #444;
-    }
-
-    /* DROPDOWN */
-    .dropdown {
-      display: none;
-      position: absolute;
-      background: #333;
-      min-width: 220px;
-      top: 50px;
-      z-index: 1000;
-      flex-direction: column;
-    }
-
-    .dropdown a {
-      padding: 12px;
-      border-bottom: 1px solid #444;
-    }
-
-    .dropdown a:hover {
-      background: #555;
-    }
-
-    /* SHOW DROPDOWN ON HOVER */
-    .navbar li:hover .dropdown {
-      display: block;
-    }
-
-    /* CONTAINER */
-    .container {
-      padding: 20px;
-      max-width: 1000px;
-      margin: auto;
-      background: #fff;
-    }
-
-    /* BREADCRUMB */
-    .breadcrumb {
-      font-size: 14px;
-      margin-bottom: 15px;
-      color: #555;
-    }
-
-    .breadcrumb a {
-      text-decoration: none;
-      color: #0073e6;
-    }
-
-    .breadcrumb span {
-      margin: 0 5px;
-    }
-
-  </style>
+<meta charset="UTF-8">
+<title>Travel Policies</title>
+<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<!-- NAVBAR -->
-<div class="navbar">
-  <ul>
+<header>
+  <nav class="navbar">
+    <h2 class="logo">TravelPro</h2>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
 
-    <li><a href="#">Home</a></li>
+      <li class="dropdown">
+        <a href="#">Policies ▼</a>
+        <ul class="dropdown-menu">
+          <li><a href="name-change.html">Name Change Policy</a></li>
+          <li><a href="flight-change.html">Flight Change Policy</a></li>
+          <li><a href="baggage.html">Baggage Policy</a></li>
+        </ul>
+      </li>
 
-    <!-- NAME CHANGE DROPDOWN -->
-    <li>
-      <a href="#">Name Change Policy ▼</a>
-      <div class="dropdown">
-        <a href="#">American Airlines Name Change</a>
-        <a href="#">Delta Name Change</a>
-        <a href="#">United Airlines Name Change</a>
-      </div>
-    </li>
+      <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+  </nav>
+</header>
 
-    <!-- FLIGHT CHANGE DROPDOWN -->
-    <li>
-      <a href="#">Flight Change Policy ▼</a>
-      <div class="dropdown">
-        <a href="#">JetBlue Flight Change</a>
-        <a href="#">Alaska Airlines Flight Change</a>
-        <a href="#">Breeze Airways Flight Change</a>
-      </div>
-    </li>
+<section class="hero">
+  <h1>Welcome to Travel Policy Hub</h1>
+  <p>Your one-stop guide for airline policies</p>
+  <button onclick="explore()">Explore Policies</button>
+</section>
 
-    <!-- BAGGAGE DROPDOWN -->
-    <li>
-      <a href="#">Baggage Policy ▼</a>
-      <div class="dropdown">
-        <a href="#">Carry-On Rules</a>
-        <a href="#">Checked Baggage Fees</a>
-        <a href="#">Extra Baggage Charges</a>
-      </div>
-    </li>
-
-    <li><a href="#">Contact Us</a></li>
-
-  </ul>
-</div>
-
-<!-- CONTENT -->
-<div class="container">
-
-  <!-- BREADCRUMB -->
-  <div class="breadcrumb">
-    <a href="#">Home</a> <span>></span>
-    <span>Policies</span>
-  </div>
-
-  <h1>Welcome to Tours N Travel Pro</h1>
-  <p>
-    Explore airline policies including name change, flight change, baggage rules,
-    and get expert help at +1-866-679-5070.
-  </p>
-
-</div>
-
-</body>
-</html>
-
-<footer>
-    <p>© 2026 My Website</p>
-</footer>
-
+<script src="script.js"></script>
 </body>
 </html>
