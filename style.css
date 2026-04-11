@@ -1,97 +1,65 @@
+/* BODY */
 body {
-  margin: 0;
-  font-family: Arial;
-  background: #0f172a;
-  color: white;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    color: #fff;
 }
 
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  padding: 15px 30px;
-  background: #020617;
+/* HEADER */
+header {
+    background: #111;
+    padding: 15px 30px;
 }
 
-.logo {
-  color: #38bdf8;
+/* CONTENT */
+.container {
+    padding: 40px;
 }
 
-.nav-links {
-  list-style: none;
-  display: flex;
+/* BREADCRUMB */
+.breadcrumb {
+    background: #111;
+    padding: 12px 30px;
 }
 
-.nav-links li {
-  position: relative;
+/* LIST */
+.breadcrumb ul {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+    flex-wrap: wrap;
 }
 
-.nav-links a {
-  color: white;
-  padding: 10px 15px;
-  text-decoration: none;
+/* ITEMS */
+.breadcrumb li {
+    font-size: 15px;
 }
 
-.nav-links a:hover {
-  color: #38bdf8;
+/* SEPARATOR */
+.breadcrumb li + li:before {
+    content: ">";
+    margin: 0 10px;
+    color: #888;
 }
 
-/* Dropdown */
-.dropdown-menu {
-  display: none;
-  position: absolute;
-  background: #020617;
-  top: 40px;
+/* LINKS */
+.breadcrumb a {
+    color: #fff;
+    text-decoration: none;
+    transition: 0.3s;
 }
 
-.dropdown-menu li {
-  display: block;
+/* HOVER GREEN GLOW */
+.breadcrumb a:hover {
+    color: #00ff88;
+    text-shadow: 0 0 8px #00ff88, 0 0 15px #00ff88;
 }
 
-.dropdown:hover .dropdown-menu {
-  display: block;
-}
-
-/* Hero */
-.hero {
-  text-align: center;
-  padding: 100px 20px;
-}
-
-.hero button {
-  padding: 10px 20px;
-  background: #38bdf8;
-  border: none;
-  cursor: pointer;
-}
-
-/* Content */
-.content {
-  padding: 40px;
-}
-
-.card {
-  background: #1e293b;
-  padding: 20px;
-  margin: 15px 0;
-  border-radius: 10px;
-  transition: transform 0.3s;
-}
-
-.card:hover {
-  transform: scale(1.05);
-}
-
-/* Form */
-form input, form textarea {
-  display: block;
-  width: 100%;
-  margin: 10px 0;
-  padding: 10px;
-}
-
-button {
-  background: #38bdf8;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
+/* ACTIVE */
+.breadcrumb .active {
+    color: #00ff88;
+    font-weight: bold;
+    text-shadow: 0 0 10px #00ff88;
 }
