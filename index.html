@@ -2,37 +2,64 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Travel Policies</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simple Breadcrumb Site</title>
+
+<!-- Link CSS -->
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
+<!-- HEADER -->
 <header>
-  <nav class="navbar">
-    <h2 class="logo">Tours N Travel Pro</h2>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-
-      <li class="dropdown">
-        <a href="#">Policies ▼</a>
-        <ul class="dropdown-menu">
-          <li><a href="name-change.html">Name Change Policy</a></li>
-          <li><a href="flight-change.html">Flight Change Policy</a></li>
-          <li><a href="baggage.html">Baggage Policy</a></li>
-        </ul>
-      </li>
-
-      <li><a href="contact.html">Contact Us</a></li>
-    </ul>
-  </nav>
+    <h2>My Website</h2>
 </header>
 
-<section class="hero">
-  <h1>Welcome to Travel Policy Hub</h1>
-  <p>Your one-stop guide for airline policies</p>
-  <button onclick="explore()">Explore Policies</button>
-</section>
+<!-- BREADCRUMB -->
+<nav class="breadcrumb">
+    <ul id="breadcrumb-list"></ul>
+</nav>
 
-<script src="script.js"></script>
+<!-- CONTENT -->
+<div class="container">
+    <h1>Welcome</h1>
+    <p>This is a simple website with dynamic breadcrumb navigation.</p>
+</div>
+
+<!-- JAVASCRIPT -->
+<script>
+const breadcrumb = document.getElementById("breadcrumb-list");
+
+let path = window.location.pathname.split("/").filter(p => p);
+
+let fullPath = "/";
+
+// Home
+let li = document.createElement("li");
+li.innerHTML = `<a href="/">Home</a>`;
+breadcrumb.appendChild(li);
+
+// Dynamic pages
+path.forEach((segment, index) => {
+
+    fullPath += segment + "/";
+
+    let name = segment.replace(/-/g, " ");
+    name = name.charAt(0).toUpperCase() + name.slice(1);
+
+    let li = document.createElement("li");
+
+    if (index === path.length - 1) {
+        li.classList.add("active");
+        li.textContent = name;
+    } else {
+        li.innerHTML = `<a href="${fullPath}">${name}</a>`;
+    }
+
+    breadcrumb.appendChild(li);
+});
+</script>
+
 </body>
 </html>
